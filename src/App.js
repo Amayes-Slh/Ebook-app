@@ -1,46 +1,52 @@
-import { useEffect, useState } from "react"
-import ApiMovie from "./ApiMovie"
-import "./App.css"
-import FeaturedMovie from "./components/FeaturedMovie"
-import Header from "./components/Header"
-import MovieSection from "./components/MoviesSection"
+import { useEffect, useState } from "react";
+import "./App.css";
+import FeaturedBook from "./components/FeaturedBooks";
+import Header from "./components/Header";
+import BookSection from "./components/BookSection";
+import { getHomeBooks, getBookInfo } from "./ApiBook";
 
 function App() {
-  const [moviesList, setMoviesList] = useState([])
-  const [featuredData, setfeaturedData] = useState(null)
+  const [booksList, setBooksList] = useState([]);
+  const [featuredData, setfeaturedData] = useState(null);
 
   useEffect(() => {
-    const loadAllMovies = async () => {
-      // Liste de tous les films
-      let list = await ApiMovie.getHomeMovies()
-      setMoviesList(list)
+    const loadAllBooks = async () => {
+      // Liste de tous les livres
+      let list = await getHomeBooks();
+      setBooksList(list);
+      console.log(list);
 
-      // Un seul film à l'affiche
-      let originals = list.filter((oneMovie) => oneMovie.slug === "top-rated")
+      // Un seul livre à l'affiche
+      let originals = list.filter((oneBook) => oneBook.slug === "classics");
 
-      let chooseRandomMovie = Math.floor(
+      let chooseRandomBook = Math.floor(
         Math.random() * (originals[0].items.results.length - 1)
-      )
-      let chosen = originals[0].items.results[chooseRandomMovie]
-      let chosenInfo = await ApiMovie.getyMovieInfo(chosen.id, "movie")
 
-      setfeaturedData(chosenInfo)
-    }
+      );
 
-    loadAllMovies()
-  }, [])
+      console.log(chooseRandomBook)
+
+
+      let chosen = originals[0].items.results[chooseRandomBook];
+      let chosenInfo = await getBookInfo(chosen.id);
+
+      setfeaturedData(chosenInfo);
+    };
+
+    loadAllBooks();
+  }, []);
 
   return (
     <div className="page">
       <Header />
-      {featuredData && <FeaturedMovie films={featuredData} />}
+      {featuredData && <FeaturedBook book={featuredData} />}
       <section className="lists">
-        {moviesList.map((item, key) => (
-          <MovieSection key={key} title={item.title} items={item.items} />
+        {booksList.map((item, key) => (
+          <BookSection key={key} title={item.title} books={item.items} />
         ))}
       </section>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

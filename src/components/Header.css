@@ -14,11 +14,19 @@ header {
 }
 
 .header--logo {
-    height: 100px;
+    height: 150px;
 }
 .header--logo img {
     height: 100%;
+  
 }
+
+.header--search{
+    background-color: rgb(123, 123, 123);
+    width: 60%;
+    
+}
+
 
 .header--user {
     height: 50px;
@@ -28,3 +36,4 @@ header {
     height: 100%;
     border-radius: 5px;
 }
+
