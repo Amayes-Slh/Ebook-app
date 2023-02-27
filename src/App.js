@@ -17,7 +17,7 @@ function App() {
       console.log(list);
 
       // Un seul livre à l'affiche
-      let originals = list.filter((oneBook) => oneBook.slug === "classics");
+/*       let originals = list.filter((oneBook) => oneBook.slug === "classics");
 
       let chooseRandomBook = Math.floor(
         Math.random() * (originals[0].items.results.length - 1)
@@ -29,8 +29,8 @@ function App() {
 
       let chosen = originals[0].items.results[chooseRandomBook];
       let chosenInfo = await getBookInfo(chosen.id);
-
-      setfeaturedData(chosenInfo);
+ */
+      setfeaturedData(list.items[4]);
     };
 
     loadAllBooks();
@@ -41,9 +41,7 @@ function App() {
       <Header />
       {featuredData && <FeaturedBook book={featuredData} />}
       <section className="lists">
-        {booksList.map((item, key) => (
-          <BookSection key={key} title={item.title} books={item.items} />
-        ))}
+          <BookSection title={booksList.title} books={booksList.items} />
       </section>
     </div>
   );
