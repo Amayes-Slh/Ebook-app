@@ -10,11 +10,11 @@ function FeaturedBook({ book }) {
       .then((data) => setBook(data));
       
   }, []); */
-
+  const points =  Math.floor(Math.random() * 3) + 8;
   if (!book) {
     return <div>Loading...</div>;
   }
-
+  
   let authors = "";
   authors=book.authors[0].name
   return (
@@ -30,14 +30,16 @@ function FeaturedBook({ book }) {
         <div className="featured--horizontal">
           <div className="featured--name">{book.title}</div>
           <div className="featured--info">
-            <div className="featured--points">10</div>
+            <div className="featured--points">{points}</div>
           </div>
-          <div className="featured--description">The Complete Works of William Shakespeare is a comprehensive collection of all the plays, sonnets, and poems written by Shakespeare. This volume offers detailed notes and commentary to help readers fully appreciate the language, characters, and themes. It is a must-have for any lover of literature, providing the most accurate and authoritative text available. Shakespeare's works continue to captivate audiences with their timeless relevance and profound insights into the human experience.</div>
+          <div className="featured--description">
+            {book.subjects.map((subject, key) => <p key={key}>{subject}</p>)}
+            </div>
           <div className="featured--button">
             {/* <a href="/" className="featured--readbutton">
               Read
             </a> */}
-            <a href="https://www.gutenberg.org/ebooks/100.html.images" className="featured--mylistbutton">
+            <a href={book.formats['text/html']} className="featured--mylistbutton">
               + Read
             </a>
           </div>

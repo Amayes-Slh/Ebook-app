@@ -20,7 +20,7 @@ function BookSection({ title, books }) {
     infinite: true,
     speed: 500,
     slidesToShow: 6,
-    slidesToScroll: 3,
+    slidesToScroll: 2,
     responsive: [
       {
         breakpoint: 768,
@@ -54,6 +54,7 @@ function BookSection({ title, books }) {
                   src={item.formats['image/jpeg']}
                 />
               </a>
+              <p>{item.title.length > 50 ? item.title.slice(0,50): item.title}</p>
             </div>
           ))
           }

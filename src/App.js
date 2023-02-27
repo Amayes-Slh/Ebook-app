@@ -12,9 +12,8 @@ function App() {
   useEffect(() => {
     const loadAllBooks = async () => {
       // Liste de tous les livres
-      let list = await getHomeBooks();
+      let list = await fetch('http://localhost:5001/livre/all').then( res => res.json())
       setBooksList(list);
-      console.log(list);
 
       // Un seul livre à l'affiche
 /*       let originals = list.filter((oneBook) => oneBook.slug === "classics");
@@ -30,18 +29,24 @@ function App() {
       let chosen = originals[0].items.results[chooseRandomBook];
       let chosenInfo = await getBookInfo(chosen.id);
  */
-      setfeaturedData(list.items[4]);
+      setfeaturedData(list[4]);
     };
 
     loadAllBooks();
   }, []);
 
+  const getData = (data) => {
+    const featured = data.shift()
+    setfeaturedData(featured)
+    setBooksList(data)
+  }
+
   return (
     <div className="page">
-      <Header />
+      <Header onKeyDown={getData}/>
       {featuredData && <FeaturedBook book={featuredData} />}
       <section className="lists">
-          <BookSection title={booksList.title} books={booksList.items} />
+          <BookSection title={booksList.length == 0 ? "" : "Liste des livres"} books={booksList} />
       </section>
     </div>
   );
