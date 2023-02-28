@@ -1,43 +1,45 @@
-import React, { useState, useEffect } from "react";
+//import React, { useState, useEffect } from "react";
 import "./FeaturedBooks.css";
 
-function FeaturedBook() {
-  const [book, setBook] = useState(null);
+function FeaturedBook({ book }) {
+  //const [book, setBook] = useState(null);
 
-  useEffect(() => {
+/*   useEffect(() => {
     fetch("https://gutendex.com/books/")
       .then((response) => response.json())
       .then((data) => setBook(data));
       
-  }, []);
-
+  }, []); */
+  const points =  Math.floor(Math.random() * 3) + 8;
   if (!book) {
     return <div>Loading...</div>;
   }
 
   let authors = "";
-  authors=book.results[4].authors[0].name
+  authors=book.authors[0].name.replace(','," ")
   return (
     <section
       className="featured"
       style={{
         backgroundSize: "50%",
-       backgroundImage:`url(${book.results[4].formats["image/jpeg"]})`,
+       backgroundImage:`url(${book.formats["image/jpeg"]})`,
       }}
       
     >
       <div className="featured--vertical">
         <div className="featured--horizontal">
-          <div className="featured--name">{book.results[4].title}</div>
+          <div className="featured--name">{book.title}</div>
           <div className="featured--info">
-            <div className="featured--points">{book.rating}</div>
+            <div className="featured--points">{points}</div>
           </div>
-          <div className="featured--description">The Complete Works of William Shakespeare is a comprehensive collection of all the plays, sonnets, and poems written by Shakespeare. This volume offers detailed notes and commentary to help readers fully appreciate the language, characters, and themes. It is a must-have for any lover of literature, providing the most accurate and authoritative text available. Shakespeare's works continue to captivate audiences with their timeless relevance and profound insights into the human experience.</div>
+          <div className="featured--description">
+            {book.subjects.map((subject, key) => <p key={key}>{subject}</p>)}
+            </div>
           <div className="featured--button">
             {/* <a href="/" className="featured--readbutton">
               Read
             </a> */}
-            <a href="https://www.gutenberg.org/ebooks/100.html.images" className="featured--mylistbutton">
+            <a href={book.formats['text/html']} className="featured--mylistbutton">
               + Read
             </a>
           </div>

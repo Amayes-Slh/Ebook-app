@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
+//import React, { useState, useEffect } from "react";
 import "./BookSection.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-function BookSection({ title}) {
-  const [items, setItems] = useState([]);
+function BookSection({ title, books }) {
+/*   const [items, setItems] = useState([]);
   
   useEffect(() => {
-    fetch("https://gutendex.com/books")
+    fetch("http://localhost:5001/livre/all")
       .then((response) => response.json())
-      .then((data) => setItems(data.results))
+      .then((data) => setItems(data))
       .catch((error) => console.log(error));
-  }, []);
+  }, []); */
 
 
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 8,
+    slidesToShow: 6,
     slidesToScroll: 2,
     responsive: [
       {
@@ -45,15 +45,19 @@ function BookSection({ title}) {
     <div className="BooksRow">
       <h2>{title}</h2>
       <Slider {...settings}>
-        {items &&
-          items.map((item, key) => (
+        {books &&
+          books.map((item, key) => (
             <div className="BooksRow--item" key={key}>
-              <img
-                alt={item.title}
-                src={`http://www.gutenberg.org/cache/epub/${item.id}/pg${item.id}.cover.medium.jpg`}
-              />
+              <a href={item.formats['text/html']}>
+                <img
+                  alt={item.title}
+                  src={item.formats['image/jpeg']}
+                />
+              </a>
+              <p>{item.title.length > 50 ? item.title.slice(0,50): item.title}</p>
             </div>
-          ))}
+          ))
+          }
       </Slider>
     </div>
   );

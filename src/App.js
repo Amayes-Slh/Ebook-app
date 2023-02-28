@@ -3,7 +3,8 @@ import "./App.css";
 import FeaturedBook from "./components/FeaturedBooks";
 import Header from "./components/Header";
 import BookSection from "./components/BookSection";
-import { getHomeBooks, getBookInfo } from "./ApiBook";
+import { API_URL } from "./components/Header";
+//import { getHomeBooks, getBookInfo } from "./ApiBook";
 
 function App() {
   const [booksList, setBooksList] = useState([]);
@@ -12,12 +13,11 @@ function App() {
   useEffect(() => {
     const loadAllBooks = async () => {
       // Liste de tous les livres
-      let list = await getHomeBooks();
+      let list = await fetch(`${API_URL}/livre/all`).then( res => res.json())
       setBooksList(list);
-      console.log(list);
 
       // Un seul livre à l'affiche
-      let originals = list.filter((oneBook) => oneBook.slug === "classics");
+/*       let originals = list.filter((oneBook) => oneBook.slug === "classics");
 
       let chooseRandomBook = Math.floor(
         Math.random() * (originals[0].items.results.length - 1)
@@ -29,21 +29,25 @@ function App() {
 
       let chosen = originals[0].items.results[chooseRandomBook];
       let chosenInfo = await getBookInfo(chosen.id);
-
-      setfeaturedData(chosenInfo);
+ */
+      setfeaturedData(list[4]);
     };
 
     loadAllBooks();
   }, []);
 
+  const getData = (data) => {
+    const featured = data.shift()
+    setfeaturedData(featured)
+    setBooksList(data)
+  }
+
   return (
     <div className="page">
-      <Header />
+      <Header onKeyDown={getData}/>
       {featuredData && <FeaturedBook book={featuredData} />}
       <section className="lists">
-        {booksList.map((item, key) => (
-          <BookSection key={key} title={item.title} books={item.items} />
-        ))}
+          <BookSection title={booksList.length === 0 ? "" : "Liste des livres"} books={booksList} />
       </section>
     </div>
   );
