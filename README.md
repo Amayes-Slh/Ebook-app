@@ -4,6 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Before start
 
+Install the [backend](https://github.com/jaegar-wolf/back_mtr)
 Change the constance API_URL in the Header.js file if you wan to switch from localhost to your network.
 
 ## Available Scripts
