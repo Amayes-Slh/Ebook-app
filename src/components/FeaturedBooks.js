@@ -14,9 +14,9 @@ function FeaturedBook({ book }) {
   if (!book) {
     return <div>Loading...</div>;
   }
-  
+
   let authors = "";
-  authors=book.authors[0].name
+  authors=book.authors[0].name.replace(','," ")
   return (
     <section
       className="featured"

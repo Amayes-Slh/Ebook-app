@@ -2,9 +2,17 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Before start
+
+Change the constance API_URL in the Header.js file if you wan to switch from localhost to your network.
+
 ## Available Scripts
 
 In the project directory, you can run:
+
+### npm install
+
+To install all dependencies of the app
 
 ### `npm start`
 
@@ -68,8 +76,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Netflix-CloneApp
-# Ebook-Store
-# Ebook-Store
-# Ebook-Project
-# Ebook-Project

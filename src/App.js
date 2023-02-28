@@ -3,7 +3,8 @@ import "./App.css";
 import FeaturedBook from "./components/FeaturedBooks";
 import Header from "./components/Header";
 import BookSection from "./components/BookSection";
-import { getHomeBooks, getBookInfo } from "./ApiBook";
+import { API_URL } from "./components/Header";
+//import { getHomeBooks, getBookInfo } from "./ApiBook";
 
 function App() {
   const [booksList, setBooksList] = useState([]);
@@ -12,7 +13,7 @@ function App() {
   useEffect(() => {
     const loadAllBooks = async () => {
       // Liste de tous les livres
-      let list = await fetch('http://localhost:5001/livre/all').then( res => res.json())
+      let list = await fetch(`${API_URL}/livre/all`).then( res => res.json())
       setBooksList(list);
 
       // Un seul livre à l'affiche
@@ -46,7 +47,7 @@ function App() {
       <Header onKeyDown={getData}/>
       {featuredData && <FeaturedBook book={featuredData} />}
       <section className="lists">
-          <BookSection title={booksList.length == 0 ? "" : "Liste des livres"} books={booksList} />
+          <BookSection title={booksList.length === 0 ? "" : "Liste des livres"} books={booksList} />
       </section>
     </div>
   );

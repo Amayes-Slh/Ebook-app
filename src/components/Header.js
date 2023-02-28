@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "./Header.css";
 import Logo from "../components/Logo.png";
 //import {Autocomplete} from '@mui/material';
-import { TextField, Switch } from '@mui/material';
+import { TextField, Switch, Tooltip } from '@mui/material';
 //import { BellIcon } from '@heroicons/react/outline'; // Import notification and search icons
+export const API_URL = "http://localhost:5001"
 
 function Header(props) {
 const [searchValue, setSearchValue] = useState("");
@@ -16,7 +17,7 @@ const handleSearchChange = (e) => {
 
 const handleKeyDown = async(e) => {
   if (e.key === 'Enter') {
-    const data = await fetch(`http://localhost:5001/livre/byWord/${searchValue}`).then(res => res.json())
+    const data = await fetch(`${API_URL}/livre/byWord/${searchValue}`).then(res => res.json())
     props.onKeyDown(data)
     setSearchValue("")
   }
@@ -81,8 +82,9 @@ return (
         }}
         />
       )}
-
-      <Switch value={regexMode} color="error" onClick={handleRegexMode}/>
+      <Tooltip title="Mode Regex">
+       <Switch value={regexMode} color="error" onClick={handleRegexMode}/>
+      </Tooltip>
     </div>
     <div className="header--user">
     <div className="header--notification-icon">
